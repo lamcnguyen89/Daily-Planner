@@ -1,7 +1,7 @@
 // Miscellaneous Global Functions and arrays:
 
     //Create an array that stores all the user's plans. This allows things to be stored and retrieved from local storage we create a new empty array with a length of 19 because there will be 19 hours total in this planner. At first this array will be empty but the user will add to it as he/she sees fit:
-    userTasksArray = new Array(18)
+    userTasksArray = new Array(22)
 
     //DOM element that links the Dynamically created time-blocks to html on the webpage and allows the time-blocks to become visible:
     let $plannerElement = $('#timeBlocks');
@@ -22,9 +22,9 @@
 // In this section of the code, we create a loop that generates time blocks from 0600 to 2400. This loop will automatically display the hour for the particular time block.
 
     // Build a loop that generates time blocks from 0600 to 2400:
-    for (let timeHour = 6; timeHour < 24; timeHour++) {
+    for (let timeHour = 2; timeHour < 24; timeHour++) {
 
-        let index = timeHour - 6;
+        let index = timeHour - 2;
 
         // Create the hourly display portion of the time block.
 
@@ -82,12 +82,12 @@
                 $colSaveBtn.addClass('col-sm-1');
 
                 // Next we create the actual Save button.
-                let $saveBtn = $('<button>');
-                $saveBtn.addClass('saveBtn btn-primary'); // Check to see if there are any styling conflicts
+                let $saveBtn = $('<input>');
+                $saveBtn.addClass('saveBtn'); // Check to see if there are any styling conflicts
                 $saveBtn.attr('id', `save ${index}`);
-                $saveBtn.attr('hourIndex', index);
+                $saveBtn.attr('saveID', index);
                 $saveBtn.attr('type', 'button');
-                $saveBtn.attr('value', 'Save Tasks');
+                $saveBtn.attr('value', 'save' );
 
                 //Finally, we insert the Save button into the column and insert the column into the time block row:
                 $rowHourly.append($colSaveBtn);
@@ -108,13 +108,39 @@
 
     function tasksUrgencyColor($hours, timeHour) {
 
-        if (timeHour < moment().format('H')) {
+        if (timeHour < moment().format('H') && timeHour > 0) {
             $hours.addClass("past");    
-        } if (timeHour == moment().format('H')) {
+        } else if (timeHour == moment().format('H')) {
             $hours.addClass("present");     
         } else {
             $hours.addClass("future");  
         }
     };
+
+// Save user inputs to local storage:
+
+    // Retrieve stored user tasks from local storage. JSON.parse converts string data back to an object:
+    let storedTasks = JSON.parse(localStorage.getItem("storedTasks"));
+
+    // Update userTasksArray  if tasks were retrieved from local storage:
+    if (storedTasks !== null) {
+        userTasksArray = storedTasks;
+    } else {
+        userTasksArray = new Array(21);
+    }
+
+    $(document).on('click', 'input', function(event){
+        event.preventDefault();
+
+        let $index = $(this).attr('saveID');
+
+        let inputID = 'inputIndex' +$index;
+        let $value = $(inputID).val();
+
+        userTasksArray[$index];
+        //Convert userTasksArray object into a string in order to store it in a format compatible with local storage:
+        localStorage.setItem('storedTasks', JSON.stringify(userTasksArray));
+
+    });
 
         
