@@ -4,7 +4,9 @@
     userTasksArray = new Array(18)
 
     //DOM element that links the Dynamically created time-blocks to html on the webpage and allows the time-blocks to become visible:
-    var $plannerElement =  
+    let $plannerElement = $('#timeBlocks');
+    $plannerElement.empty(); // Clear existing elements 
+    
 
 // In this section of the code, we use moment.js to deal with the time elements on the web application.
 
@@ -97,16 +99,22 @@
                 
         //Finally we have created the three columns in the time block: The time display column, the user input column and the column that houses the save button. Now we add it to the webpage by appending the row to an element on the html of the webpage. This the method that actually causes the webpage to show all the work we just did.
 
-                
- 
-        
-    }
+                $plannerElement.append($rowHourly)
+  
+    };
 
 
 // Function to update row color:
 
-    function tasksUrgencyColor() {
+    function tasksUrgencyColor($hours, timeHour) {
 
+        if (timeHour < moment().format('H')) {
+            $hours.addClass("past");    
+        } if (timeHour == moment().format('H')) {
+            $hours.addClass("present");     
+        } else {
+            $hours.addClass("future");  
+        }
     };
 
         
