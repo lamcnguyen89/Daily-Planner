@@ -1,11 +1,11 @@
 // Miscellaneous Global Functions and arrays:
 
-    //Create an array that stores all the user's plans. This allows things to be stored and retrieved from local storage we create a new empty array with a length of 19 because there will be 19 hours total in this planner. At first this array will be empty but the user will add to it as he/she sees fit:
-    userTasksArray = new Array(22)
-
     //DOM element that links the Dynamically created time-blocks to html on the webpage and allows the time-blocks to become visible:
     let $plannerElement = $('#timeBlocks');
     $plannerElement.empty(); // Clear existing elements 
+
+    // Array for storing values to be transferred to Local Storage:
+    userTasksArray = [];
     
 
 // In this section of the code, we use moment.js to deal with the time elements on the web application.
@@ -119,28 +119,44 @@
 
 // Save user inputs to local storage:
 
-    // Retrieve stored user tasks from local storage. JSON.parse converts string data back to an object:
-    let storedTasks = JSON.parse(localStorage.getItem("storedTasks"));
+    $('textarea').on('click', function() {
 
-    // Update userTasksArray  if tasks were retrieved from local storage:
-    if (storedTasks !== null) {
-        userTasksArray = storedTasks;
-    } else {
-        userTasksArray = new Array(21);
-    }
+        localStorage.setItem("userTasks", JSON.stringify(userTasksArray));
 
-    $(document).on('click', 'input', function(event){
-        event.preventDefault();
 
-        let $index = $(this).attr('saveID');
-
-        let inputID = 'inputIndex' +$index;
-        let $value = $(inputID).val();
-
-        userTasksArray[$index];
-        //Convert userTasksArray object into a string in order to store it in a format compatible with local storage:
-        localStorage.setItem('storedTasks', JSON.stringify(userTasksArray));
 
     });
+
+
+
+
+
+
+
+
+
+
+
+
+    // $(document).on('click', 'input', function(event){
+    //     // Prevents the button from automatically performing its default action.
+    //     event.preventDefault();
+
+    //     let $index = $(this).attr('saveID');
+
+    //     let inputID = 'inputIndex' +$index;
+    //     let $value = $(inputID).val();
+
+    //     userTasksArray[$index] = $value;
+    //     //Convert userTasksArray object into a string in order to store it in a format compatible with local storage:
+    //     localStorage.setItem('storedTasks', JSON.stringify(userTasksArray));
+
+    // });
+
+   
+
+    
+
+
 
         
