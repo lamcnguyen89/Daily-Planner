@@ -19,6 +19,7 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="style.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script> <!--Moment.js CDN link-->
     <title>Work Day Scheduler</title>
   </head>
 
@@ -26,13 +27,44 @@
     <header class="jumbotron">
       <h1 class="display-3">Work Day Scheduler</h1>
       <p class="lead">A simple calendar app for scheduling your work day</p>
+      <!--We use Momment.js for the time and dates. We will display time/date in the element with id="currentDay".-->
       <p id="currentDay" class="lead"></p>
     </header>
+  
     <div class="container">
       <!-- Timeblocks go here -->
+      <!-- When you look at the assignment, the planner body is made of many rows. Each row is for one hour in the day.-->
+      <!-- Each row is divided into 3 columns. The first column shows the time. The second is the form where you right stuff. The third is the button to save the data.-->
+
+      <div class="row">
+            <div class="col-sm-3">
+              <div class="hour"></div>
+            </div>
+            <div class="col-sm-9">
+              <textarea></textarea>
+            </div>
+            <div class="col-sm-3">
+              <div class="saveBtn"></div>
+
+            </div>
+      </div>
+
+      <!-- When you type inside each timeblock, the data gets saved within local storage-->
     </div>
 
+
+      <!-- When you refresh the page, the planner data that you've written down is still there. Retrieve from local storage-->
+
+
+
+      <!-- Color Code. When you are in the present hour, that block turns red. The past hour block is grey. The next hours are 
+      color coded -->
+      <!--You have to use Moment.js to compare the times. You compare time written in column one with time in the moment(moment.js)and run functions depending on the conditions.-->
+      <!--Use moment().hour;-->
+
+   
+
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+    <script src="planner.js"></script>
   </body>
 </html>
