@@ -4,8 +4,16 @@
     let $plannerElement = $('#timeBlocks');
     $plannerElement.empty(); // Clear existing elements 
 
-    // Array for storing values to be transferred to Local Storage:
-    userTasksArray = [];
+    //Pull stored user tasks from local storage. Convert from a JSON string back to an Object with JSON stringify:
+    let storedTasks = JSON.parse(localStorage.getItem("storedTasks"))
+
+    // Condition if there is already data in local storage, then we retrieve it first before the user can input anything:
+    if (storedTasks) {
+        userTasksArray = storedTasks;
+    } else {
+        userTasksArray = new Array(22);
+    }
+    
     
 
 // In this section of the code, we use moment.js to deal with the time elements on the web application.
@@ -118,40 +126,20 @@
     };
 
 // Save user inputs to local storage:
+    $(document).on('click', 'input', function(event){
+        // Prevents the button from automatically performing its default action.
+        event.preventDefault();
 
-    $('textarea').on('click', function() {
+        let $index = $(this).attr('saveID');
 
-        localStorage.setItem("userTasks", JSON.stringify(userTasksArray));
+        let inputID = 'inputIndex' +$index;
+        let $value = $(inputID).val();
 
-
+        userTasksArray[$index] = $value;
+        //Convert userTasksArray object into a string in order to store it in a format compatible with local storage:
+        localStorage.setItem('storedTasks', JSON.stringify(userTasksArray));
 
     });
-
-
-
-
-
-
-
-
-
-
-
-
-    // $(document).on('click', 'input', function(event){
-    //     // Prevents the button from automatically performing its default action.
-    //     event.preventDefault();
-
-    //     let $index = $(this).attr('saveID');
-
-    //     let inputID = 'inputIndex' +$index;
-    //     let $value = $(inputID).val();
-
-    //     userTasksArray[$index] = $value;
-    //     //Convert userTasksArray object into a string in order to store it in a format compatible with local storage:
-    //     localStorage.setItem('storedTasks', JSON.stringify(userTasksArray));
-
-    // });
 
    
 
