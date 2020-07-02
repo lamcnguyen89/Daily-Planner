@@ -1,6 +1,7 @@
 # UCF_Week_03_Homework--Third-Party_APIs
 In this assignment we create a calendar application. This app will run in the browser and feature dynamically updated HTML and CSS powered by JQuery. We  used the Moment.js script which makes it easy to get the time at this particular instance. We used Bootstrap and also google fonts. This assignment involved using many externally linked libraries as well as JavaScript logic. We also learned to use local storage to save data.
 
+[View Deployed Project Here](https://lamcnguyen89.github.io/Daily-Planner/)
 
 ### Prerequisites and Deployment
 
